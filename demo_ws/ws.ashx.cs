@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Web;
+using System.Web.DynamicData;
 
 namespace demo_ws
 {
@@ -70,6 +71,12 @@ namespace demo_ws
 
         private static void CheckDatabaseForChanges(object state)
         {
+            if (_clients.Count == 0)
+            {
+                //quit luôn, check làm gì, có ai mà gửi
+                return;
+            } 
+
             using (SqlConnection connection = new SqlConnection("Server=localhost,49259;Database=QLSV;User Id=sa;Password=123;"))
             {
                 connection.Open();
