@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Demo</title>
+</head>
+<body>
+    <script>
+        function get_ws() {
+            const secure = window.location.protocol === "https:" ? "s" : "";
+            const host = window.location.host;
+            const wsUrl = `ws${secure}://${host}/ws.ashx`;
+            var ws = new WebSocket(wsUrl);
+            ws.onopen = function (e) {
+                console.log("WebSocket connection opened!");
+                // Gửi yêu cầu đến server
+                ws.send("Hello from client!");
+            };
+
+            ws.onmessage = function (e) {
+                console.log("Message from server: " + e.data);
+            };
+
+            ws.onclose = function (e) {
+                console.log("WebSocket connection closed!");
+                setTimeout(get_ws, 5000);
+            };
+            ws.onerror = function (e) {
+                console.error("WebSocket Error: ", e);
+            }
+        }
+        get_ws();
+    </script>
+    hello
+</body>
+</html>

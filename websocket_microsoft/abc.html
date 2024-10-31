@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        //js thuần: ko cần jQuery
+        function fetchData(url, callback) {
+            // Tạo một XMLHttpRequest mới
+            var xhr = new XMLHttpRequest();
+
+            // Cấu hình phương thức và URL
+            xhr.open("GET", url, true);
+
+            // Định nghĩa hàm xử lý khi yêu cầu hoàn tất
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Nhận dữ liệu dạng text từ response
+                    console.log(xhr.responseText);
+                    callback(xhr.responseText)
+                }
+            };
+
+            // Gửi yêu cầu
+            xhr.send();
+        }
+
+        function gui(action) {
+            // Gọi hàm với URL mong muốn
+            fetchData("api.aspx?action="+action, function (txt) {
+                document.getElementById('kq').innerHTML = txt;
+            });
+        }
+
+    </script>
+</head>
+<body>
+    abc xyz
+    <div id="kq"></div>
+    <button onclick="gui('hello')">ajax Hello</button>
+    <button onclick="gui('xxx')">ajax XXX</button>
+
+</body>
+</html>
